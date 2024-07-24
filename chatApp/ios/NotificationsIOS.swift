@@ -9,7 +9,6 @@ import Foundation
 
 @objc(NotificationsIOS)
 class NotificationsIOS: NSObject {
-  // Loads before any JS code get executed, when exporting constats or UIKit elements.
   @objc
   static func requiresMainQueueSetup() -> Bool {
     return true;
@@ -23,7 +22,6 @@ class NotificationsIOS: NSObject {
     center.getNotificationSettings { settings in
       switch settings.authorizationStatus {
       case .notDetermined:
-        // Prompt has not been shown yet, so request authorization
         center.requestAuthorization(options: options) { granted, error in
           if let error = error {
             reject("REQUEST_FAILED", error.localizedDescription, error)
@@ -32,13 +30,12 @@ class NotificationsIOS: NSObject {
           }
         }
       case .denied, .authorized:
-        // Prompt has already been shown, so open settings
         if let appSettings = URL(string: UIApplication.openSettingsURLString) {
           DispatchQueue.main.async {
             UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
           }
         }
-        resolve(nil) // Resolve with nil or any other value indicating that settings were opened
+        resolve(nil)
       default:
         break
       }
