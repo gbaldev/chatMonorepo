@@ -42,3 +42,9 @@ The persistent connection is essential for real-time message reception.
 - Understand the limitations of background tasks in iOS
 
 This project exemplifies the ability to tackle complex mobile development challenges, implement platform-specific features, and create cohesive full-stack mobile solutions.
+
+## Demonstration Video of usage and iOS Background Task Limitations
+
+In the video, you can see the mentioned limitations of background tasks on iOS, where in some scenarios the OS decides to terminate them. This behavior is expected, which is why in some cases the tasks continue and in others they are suspended. This is not the case with Android, which generally allows background tasks to continue running.
+
+[![Watch Video](https://drive.google.com/uc?export=view&id=1gbTlagfWyU18DfR8L6v9MgvLI3sryoRJ)](https://drive.google.com/file/d/1gbTlagfWyU18DfR8L6v9MgvLI3sryoRJ/view?usp=sharing)
