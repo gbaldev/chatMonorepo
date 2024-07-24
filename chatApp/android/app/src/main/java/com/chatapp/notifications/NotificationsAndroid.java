@@ -25,7 +25,6 @@ public class NotificationsAndroid extends ReactContextBaseJavaModule {
     private static final int NOTIFICATION_PERMISSION_CODE = 100;
     private static final String CHANNEL_ID = "default_channel";
     private static final String CHANNEL_NAME = "Default Channel";
-    private Promise mPermissionPromise;
 
     public NotificationsAndroid(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -55,19 +54,18 @@ public class NotificationsAndroid extends ReactContextBaseJavaModule {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (NotificationManagerCompat.from(currentActivity).areNotificationsEnabled()) {
+                promise.resolve(true);
                 openNotificationSettings(currentActivity);
-                mPermissionPromise = promise;
             } else if (ActivityCompat.checkSelfPermission(currentActivity, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                mPermissionPromise = promise;
                 promise.resolve(true);
             } else if (!ActivityCompat.shouldShowRequestPermissionRationale(currentActivity, Manifest.permission.POST_NOTIFICATIONS)) {
+                promise.resolve(false);
                 openNotificationSettings(currentActivity);
-                mPermissionPromise = promise;
             } else {
+                promise.resolve(false);
                 ActivityCompat.requestPermissions(currentActivity,
                         new String[]{Manifest.permission.POST_NOTIFICATIONS},
                         NOTIFICATION_PERMISSION_CODE);
-                mPermissionPromise = promise;
             }
         } else {
             promise.resolve(true);
@@ -121,14 +119,13 @@ public class NotificationsAndroid extends ReactContextBaseJavaModule {
 
         PendingIntent pendingIntent;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            // For android 12 (API lvl 31) > we need to specify the inmutability of the pending intent
             pendingIntent = PendingIntent.getActivity(currentActivity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         } else {
             pendingIntent = PendingIntent.getActivity(currentActivity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(currentActivity, CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.ic_dialog_email) // Complex icons are not beign displayed properly in newest versions of Androiod
+                .setSmallIcon(android.R.drawable.ic_dialog_email)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
