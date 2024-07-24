@@ -47,4 +47,6 @@ This project exemplifies the ability to tackle complex mobile development challe
 
 In the video, you can see the mentioned limitations of background tasks on iOS, where in some scenarios the OS decides to terminate them. This behavior is expected, which is why in some cases the tasks continue and in others they are suspended. This is not the case with Android, which generally allows background tasks to continue running.
 
-[![Watch Video](https://drive.google.com/uc?export=view&id=1gbTlagfWyU18DfR8L6v9MgvLI3sryoRJ)](https://drive.google.com/file/d/1gbTlagfWyU18DfR8L6v9MgvLI3sryoRJ/view?usp=sharing)
+<img width="1507" alt="image" src="https://github.com/user-attachments/assets/d06a6a6d-15ae-45fb-9ed0-3bec4829dc7c">
+
+[Video](https://drive.google.com/file/d/1gbTlagfWyU18DfR8L6v9MgvLI3sryoRJ/view?usp=sharing)
