@@ -27,7 +27,7 @@ import StackRoutes, { StackRoutesList } from '@navigation/routes';
 import notifications, {
   checkPermissions,
   requestPermissions,
-} from '@notifications/index.ts';
+} from '@notifications';
 import MessageBubble from './components/MessageBubble';
 import styles from './styles';
 

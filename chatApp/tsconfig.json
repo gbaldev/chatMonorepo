@@ -14,7 +14,8 @@
       "@containers/*": ["src/containers/*"],
       "@constants/*": ["src/constants/*"],
       "@assets/*": ["src/assets/*"],
-      "@notifications/*": ["src/notifications/*"]
+      "@notifications/*": ["src/notifications/*"],
+      "@notifications": ["src/notifications"],
     },
     "types": ["node", "jest"],
   }

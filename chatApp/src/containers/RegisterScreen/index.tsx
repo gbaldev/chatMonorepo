@@ -8,7 +8,7 @@ import { useUserInfo } from '@contexts/UserInfo/context';
 import Message from '@models/Message';
 import User from '@models/User';
 import StackRoutes, { StackRoutesList } from '@navigation/routes';
-import { checkPermissions, sendNotification } from '@notifications/index.ts';
+import { checkPermissions, sendNotification } from '@notifications';
 import RegisterScreen from '@screens/RegisterScreen';
 
 interface RegisterScreenContainerProps {}

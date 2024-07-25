@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ChatRoomScreen from '@screens/ChatRoomScreen';
-import { RegisterBackgroundTask } from '@notifications/index.ts';
+import { RegisterBackgroundTask } from '@notifications';
 import { useUserInfo } from '@contexts/UserInfo/context';
 
 interface ChatRoomScreenProps {}
