@@ -28,7 +28,6 @@ export const UserInfoProvider: React.ComponentType<UserInfoProviderProps> = ({
     const loadState = async () => {
       const savedState = await AsyncStorage.getItem('MY_MESSAGES');
       if (savedState) {
-        console.log('aver');
         setMessages(JSON.parse(savedState));
       }
     };

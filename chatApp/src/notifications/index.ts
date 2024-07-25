@@ -1,9 +1,11 @@
 import { NativeModules, Platform } from 'react-native';
 
-const { NotificationsAndroid, NotificationsIOS } = NativeModules;
+const { NotificationsAndroid, NotificationsIOS, BackgroundTaskModule } =
+  NativeModules;
+const isAndroid = Platform.OS === 'android';
 
 export const requestPermissions = async () => {
-  if (Platform.OS === 'android') {
+  if (isAndroid) {
     return NotificationsAndroid.requestPermissions();
   } else {
     return NotificationsIOS.requestPermissions();
@@ -11,7 +13,7 @@ export const requestPermissions = async () => {
 };
 
 export const checkPermissions = async () => {
-  if (Platform.OS === 'android') {
+  if (isAndroid) {
     return NotificationsAndroid.checkPermissions();
   } else {
     return NotificationsIOS.checkPermissions();
@@ -19,7 +21,7 @@ export const checkPermissions = async () => {
 };
 
 export const sendNotification = ({ title, body }: any) => {
-  if (Platform.OS === 'android') {
+  if (isAndroid) {
     NotificationsAndroid.sendNotification({ title, body });
   } else {
     NotificationsIOS.sendNotification({ title, body });
@@ -27,10 +29,11 @@ export const sendNotification = ({ title, body }: any) => {
 };
 
 export const RegisterBackgroundTask = () => {
-  Platform.select({
-    ios: NativeModules.BackgroundTaskModule.startBackgroundTask(),
-    android: () => console.log('No background task needed for android'),
-  })();
+  if (isAndroid) {
+    console.log('No background task needed for android');
+  } else {
+    BackgroundTaskModule.startBackgroundTask();
+  }
 };
 
 export default { requestPermissions, checkPermissions, sendNotification };

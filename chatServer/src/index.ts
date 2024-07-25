@@ -2,19 +2,13 @@ import express from 'express';
 import { Server } from 'socket.io';
 import http from 'http';
 import { User } from './models/user';
+import { Message } from './models/message';
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
 app.use(express.json());
-
-interface Message {
-    name: string;
-    message: string;
-    deviceId: string;
-    sentAt: Date;
-}
 
 let users: User[] = [];
 let messages: Message[] = [];

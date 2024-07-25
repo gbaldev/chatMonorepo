@@ -17,7 +17,6 @@ const StackNavigator: React.ComponentType<StackNavigatorProps> = () => {
     const loadNavState = async () => {
       const savedState = await AsyncStorage.getItem('NAVIGATION_STATE');
       if (savedState) {
-        console.log('avergaston', JSON.parse(savedState));
         setNavState(JSON.parse(savedState));
       }
     };
