@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import ChatRoomScreen from '../../screens/ChatRoomScreen';
 import { useUserInfo } from '../../contexts/UserInfo/context';
-import { NativeModules, Platform } from 'react-native';
 import { RegisterBackgroundTask } from '../../notifications';
 
 interface ChatRoomScreenProps {}
