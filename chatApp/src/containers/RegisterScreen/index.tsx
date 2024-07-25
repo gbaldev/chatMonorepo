@@ -21,7 +21,7 @@ const RegisterScreenContainer: React.ComponentType<
     useNavigation<NativeStackNavigationProp<StackRoutesList>>();
 
   useEffect(() => {
-    socket.on('connect', () => {
+    socket.on(SocketEvents.CONNECT, () => {
       socket.on(SocketEvents.JOIN_SUCCESS, async (u: User) => {
         const user = await getUser();
         if (!user) {
@@ -83,7 +83,7 @@ const RegisterScreenContainer: React.ComponentType<
   }, [getUser, navigation, setMessages, setUser, messages]);
 
   const onJoinChat = (u: Partial<User>) => {
-    socket.emit(SocketEvents.CONNECT, u);
+    socket.emit(SocketEvents.JOIN, u);
   };
 
   return <RegisterScreen onJoinChat={onJoinChat} />;
