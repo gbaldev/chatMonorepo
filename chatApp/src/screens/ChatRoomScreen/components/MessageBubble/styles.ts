@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../../../constants/colors';
 
 export default StyleSheet.create({
   message: {
@@ -11,21 +12,21 @@ export default StyleSheet.create({
   fromMe: {
     fontWeight: 'bold',
     textAlign: 'right',
-    color: 'white',
+    color: colors.white,
     width: '85%',
   },
   fromOther: {
     textAlign: 'left',
-    color: 'white',
+    color: colors.white,
     width: '85%',
   },
   whoCircle: {
     height: 34,
     width: 34,
     borderRadius: 50,
-    backgroundColor: 'rgba(255,255,255, 0.5)',
+    backgroundColor: colors.white05,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  whoText: { color: 'white', fontWeight: 'bold' },
+  whoText: { color: colors.white, fontWeight: 'bold' },
 });

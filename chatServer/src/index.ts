@@ -3,6 +3,7 @@ import { Server } from 'socket.io';
 import http from 'http';
 import { User } from './models/user';
 import { Message } from './models/message';
+import { SocketEvents } from './models/SocketEvents';
 
 const app = express();
 const server = http.createServer(app);
@@ -13,24 +14,24 @@ app.use(express.json());
 let users: User[] = [];
 let messages: Message[] = [];
 
-io.on('connection', (socket) => {
+io.on(SocketEvents.CONNECTION, (socket) => {
   console.log('New socket connection with Socket ID:', socket.id);
 
-  socket.on('joinChat', (u: User) => {
+  socket.on(SocketEvents.JOIN, (u: User) => {
     const { name, surname, deviceId } = u;
     const user: User = { name, surname, socketId: socket.id, deviceId, connectedAt: new Date() };
     users.push(user);
-    socket.emit('joinSuccess', user);
+    socket.emit(SocketEvents.JOIN_SUCCESS, user);
   });
 
-  socket.on('sendMessage', (message: Message) => {
+  socket.on(SocketEvents.SEND_MESSAGE, (message: Message) => {
     messages.push({...message, sentAt: new Date()});
     const user = users.find(user => user.socketId === socket.id);
     if (!user) {return};
-    io.emit('newMessage', messages);
+    io.emit(SocketEvents.NEW_MESSAGE, messages);
   })
 
-  socket.on('disconnect', () => {
+  socket.on(SocketEvents.DISCONNECT, () => {
     const user = users.find(user => user.socketId === socket.id);
     if (user) {
       user.socketId = undefined;

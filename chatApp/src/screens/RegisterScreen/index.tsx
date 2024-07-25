@@ -9,6 +9,8 @@ import {
 import User from '../../models/User';
 import styles from './styles';
 import DeviceInfo from 'react-native-device-info';
+import consts from '../../constants/consts';
+import colors from '../../constants/colors';
 
 interface RegisterScreenProps {
   onJoinChat: (user: Partial<User>) => void;
@@ -22,9 +24,7 @@ const RegisterScreen: React.ComponentType<RegisterScreenProps> = ({
   const deviceId = DeviceInfo.getDeviceId();
 
   return (
-    <ImageBackground
-      source={require('../../assets/images/bg1.jpg')}
-      style={styles.imagebg}>
+    <ImageBackground source={consts.backgroundImage} style={styles.imagebg}>
       <SafeAreaView style={styles.container}>
         <Text style={styles.inputLabel}>First Name</Text>
         <TextInput
@@ -43,9 +43,7 @@ const RegisterScreen: React.ComponentType<RegisterScreenProps> = ({
             styles.button,
             {
               backgroundColor:
-                !!firstName && !!lastName
-                  ? 'rgba(118,54,38,1)'
-                  : 'rgba(118,54,38,0.2)',
+                !!firstName && !!lastName ? colors.wine : colors.wine02,
             },
           ]}
           disabled={!firstName || !lastName}

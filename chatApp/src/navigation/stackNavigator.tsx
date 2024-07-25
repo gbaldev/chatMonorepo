@@ -5,6 +5,7 @@ import StackRoutes from './routes';
 import RegisterScreenContainer from '../containers/RegisterScreen';
 import ChatRoomScreenContainer from '../containers/ChatRoomScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import consts from '../constants/consts';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +16,9 @@ const StackNavigator: React.ComponentType<StackNavigatorProps> = () => {
 
   React.useEffect(() => {
     const loadNavState = async () => {
-      const savedState = await AsyncStorage.getItem('NAVIGATION_STATE');
+      const savedState = await AsyncStorage.getItem(
+        consts.storage.navigationState,
+      );
       if (savedState) {
         setNavState(JSON.parse(savedState));
       }
@@ -27,7 +30,10 @@ const StackNavigator: React.ComponentType<StackNavigatorProps> = () => {
     <NavigationContainer
       initialState={navState ?? undefined}
       onStateChange={state =>
-        AsyncStorage.setItem('NAVIGATION_STATE', JSON.stringify(state))
+        AsyncStorage.setItem(
+          consts.storage.navigationState,
+          JSON.stringify(state),
+        )
       }>
       <Stack.Navigator>
         <Stack.Screen

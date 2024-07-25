@@ -1,8 +1,10 @@
+/* eslint-disable no-bitwise */
 import React from 'react';
 import styles from './styles';
 import { ListRenderItem, Text, View } from 'react-native';
-import { Message } from '../..';
 import DeviceInfo from 'react-native-device-info';
+import Message from '../../../../models/Message';
+import colors from '../../../../constants/colors';
 
 const MessageBubble: ListRenderItem<Message> = ({ item }) => {
   const deviceId = DeviceInfo.getDeviceId();
@@ -30,9 +32,7 @@ const MessageBubble: ListRenderItem<Message> = ({ item }) => {
         styles.message,
         {
           backgroundColor:
-            item.deviceId === deviceId
-              ? 'rgba(144,175,197,0.3)'
-              : 'rgba(118,54,38,0.3)',
+            item.deviceId === deviceId ? colors.grayBlue03 : colors.wine03,
         },
       ]}>
       {!itsMe && (

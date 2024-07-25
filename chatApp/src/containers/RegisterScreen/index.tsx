@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
+import { AppState } from 'react-native';
 import RegisterScreen from '../../screens/RegisterScreen';
 import { useUserInfo } from '../../contexts/UserInfo/context';
 import User from '../../models/User';
-import socket from '../../constants/socket';
-import { AppState } from 'react-native';
-import { Message } from '../../screens/ChatRoomScreen';
+import socket, { SocketEvents } from '../../constants/socket';
 import DeviceInfo from 'react-native-device-info';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import StackRoutes, { StackRoutesList } from '../../navigation/routes';
 import { checkPermissions, sendNotification } from '../../notifications';
+import Message from '../../models/Message';
+
 interface RegisterScreenContainerProps {}
 
 const RegisterScreenContainer: React.ComponentType<
@@ -21,7 +22,7 @@ const RegisterScreenContainer: React.ComponentType<
 
   useEffect(() => {
     socket.on('connect', () => {
-      socket.on('joinSuccess', async (u: User) => {
+      socket.on(SocketEvents.JOIN_SUCCESS, async (u: User) => {
         const user = await getUser();
         if (!user) {
           setUser(u);
@@ -31,11 +32,11 @@ const RegisterScreenContainer: React.ComponentType<
           lastName: u.surname,
         });
       });
-      socket.on('newMessage', async (messages: Message[]) => {
+      socket.on(SocketEvents.NEW_MESSAGE, async (_messages: Message[]) => {
         const user = await getUser();
 
         if (user) {
-          setMessages(messages.filter(m => m.sentAt >= user.connectedAt));
+          setMessages(_messages.filter(m => m.sentAt >= user.connectedAt));
         } else {
           setMessages([]);
         }
@@ -48,7 +49,7 @@ const RegisterScreenContainer: React.ComponentType<
         // We are handling foreground notifications, but anyway
         // we don't want to display them in this scenario.
         if (permissions && appIsInBackground) {
-          const lastMessage = messages.pop();
+          const lastMessage = _messages.pop();
           if (
             lastMessage &&
             lastMessage.deviceId !== DeviceInfo.getDeviceId()
@@ -65,7 +66,7 @@ const RegisterScreenContainer: React.ComponentType<
     const retrievePrevState = async () => {
       let user = await getUser();
       if (user && messages && messages.length > 0) {
-        socket.emit('joinChat', {
+        socket.emit(SocketEvents.JOIN, {
           name: user.name,
           surname: user.surname,
           deviceId: DeviceInfo.getDeviceId(),
@@ -76,13 +77,13 @@ const RegisterScreenContainer: React.ComponentType<
     retrievePrevState();
 
     return () => {
-      socket.off('connect');
-      socket.off('disconnect');
+      socket.off(SocketEvents.CONNECT);
+      socket.off(SocketEvents.DISCONNECT);
     };
   }, [getUser, navigation, setMessages, setUser, messages]);
 
   const onJoinChat = (u: Partial<User>) => {
-    socket.emit('joinChat', u);
+    socket.emit(SocketEvents.CONNECT, u);
   };
 
   return <RegisterScreen onJoinChat={onJoinChat} />;

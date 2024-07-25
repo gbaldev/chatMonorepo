@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import {
   AppState,
+  AppStateStatus,
   FlatList,
   ImageBackground,
   Text,
@@ -16,7 +17,7 @@ import {
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import socket from '../../constants/socket';
+import socket, { SocketEvents } from '../../constants/socket';
 import styles from './styles';
 import MessageBubble from './components/MessageBubble';
 import { RouteProp, useRoute } from '@react-navigation/native';
@@ -26,14 +27,9 @@ import notifications, {
   checkPermissions,
   requestPermissions,
 } from '../../notifications';
-
-export interface Message {
-  name: string;
-  surname: string;
-  message: string;
-  deviceId: string;
-  sentAt: Date;
-}
+import consts from '../../constants/consts';
+import colors from '../../constants/colors';
+import Message from '../../models/Message';
 
 interface ChatRoomScreenProps {
   chatMessages: Message[];
@@ -54,7 +50,7 @@ const ChatRoomScreen: React.ComponentType<ChatRoomScreenProps> = ({
   const [appState, setAppState] = useState(AppState.currentState);
 
   const handleSubmit = () => {
-    socket.emit('sendMessage', {
+    socket.emit(SocketEvents.SEND_MESSAGE, {
       name: firstName,
       surname: lastName,
       message,
@@ -70,9 +66,7 @@ const ChatRoomScreen: React.ComponentType<ChatRoomScreenProps> = ({
 
   useEffect(() => {
     const handleAppStateChange = async (
-      nextAppState: SetStateAction<
-        'active' | 'background' | 'inactive' | 'unknown' | 'extension'
-      >,
+      nextAppState: SetStateAction<AppStateStatus>,
     ) => {
       if (appState.match(/inactive|background/) && nextAppState === 'active') {
         try {
@@ -103,9 +97,7 @@ const ChatRoomScreen: React.ComponentType<ChatRoomScreenProps> = ({
   }, []);
 
   return (
-    <ImageBackground
-      source={require('../../assets/images/bg1.jpg')}
-      style={styles.imagebg}>
+    <ImageBackground source={consts.backgroundImage} style={styles.imagebg}>
       <SafeAreaView style={styles.container}>
         <FlatList
           contentContainerStyle={styles.flatlistContainer}
@@ -116,19 +108,12 @@ const ChatRoomScreen: React.ComponentType<ChatRoomScreenProps> = ({
         />
         <View style={styles.inputContainer}>
           <TouchableOpacity
-            style={{
-              backgroundColor: 'pink',
-              height: 45,
-              width: 45,
-              borderRadius: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+            style={styles.iconContainer}
             onPress={() => requestPermissions()}>
             <Icon
               name={notificationsEnabled ? 'bell' : 'disabledBell'}
               size={30}
-              color={'black'}
+              color={colors.black}
             />
           </TouchableOpacity>
           <TextInput

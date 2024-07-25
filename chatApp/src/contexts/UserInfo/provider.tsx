@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import User from '../../models/User';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider, UserInfoContextType } from './context';
-import { Message } from '../../screens/ChatRoomScreen';
+import consts from '../../constants/consts';
+import Message from '../../models/Message';
 
 type UserInfoProviderProps = {
   children: any;
@@ -14,11 +15,11 @@ export const UserInfoProvider: React.ComponentType<UserInfoProviderProps> = ({
   const [messages, setMessages] = useState<Message[]>([]);
 
   const setUser = (u: User) => {
-    AsyncStorage.setItem('user', JSON.stringify(u));
+    AsyncStorage.setItem(consts.storage.user, JSON.stringify(u));
   };
 
   const getUser = async () => {
-    let user = await AsyncStorage.getItem('user');
+    let user = await AsyncStorage.getItem(consts.storage.user);
     if (user) {
       return JSON.parse(user ?? {});
     }
@@ -26,7 +27,7 @@ export const UserInfoProvider: React.ComponentType<UserInfoProviderProps> = ({
 
   useEffect(() => {
     const loadState = async () => {
-      const savedState = await AsyncStorage.getItem('MY_MESSAGES');
+      const savedState = await AsyncStorage.getItem(consts.storage.messages);
       if (savedState) {
         setMessages(JSON.parse(savedState));
       }
@@ -36,7 +37,10 @@ export const UserInfoProvider: React.ComponentType<UserInfoProviderProps> = ({
 
   useEffect(() => {
     const saveState = async () => {
-      await AsyncStorage.setItem('MY_MESSAGES', JSON.stringify(messages));
+      await AsyncStorage.setItem(
+        consts.storage.messages,
+        JSON.stringify(messages),
+      );
     };
     saveState();
   }, [messages]);
