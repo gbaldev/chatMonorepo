@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
-import User from '../../models/User';
-import Message from '../../models/Message';
+import Message from '@models/Message';
+import User from '@models/User';
 
 export type UserInfoContextType = {
   messages?: Message[];

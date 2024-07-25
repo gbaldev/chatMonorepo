@@ -1,3 +1,21 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+      "tests": ["tests/*"],
+      "@components/*": ["src/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@navigation/*": ["src/navigation/*"],
+      "@models/*": ["src/models/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@containers/*": ["src/containers/*"],
+      "@constants/*": ["src/constants/*"],
+      "@assets/*": ["src/assets/*"],
+      "@notifications/*": ["src/notifications/*"]
+    },
+    "types": ["node", "jest"],
+  }
 }

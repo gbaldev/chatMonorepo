@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { AppState } from 'react-native';
-import RegisterScreen from '../../screens/RegisterScreen';
-import { useUserInfo } from '../../contexts/UserInfo/context';
-import User from '../../models/User';
-import socket, { SocketEvents } from '../../constants/socket';
-import DeviceInfo from 'react-native-device-info';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import StackRoutes, { StackRoutesList } from '../../navigation/routes';
-import { checkPermissions, sendNotification } from '../../notifications';
-import Message from '../../models/Message';
+import DeviceInfo from 'react-native-device-info';
+import socket, { SocketEvents } from '@constants/socket';
+import { useUserInfo } from '@contexts/UserInfo/context';
+import Message from '@models/Message';
+import User from '@models/User';
+import StackRoutes, { StackRoutesList } from '@navigation/routes';
+import { checkPermissions, sendNotification } from '@notifications/index.ts';
+import RegisterScreen from '@screens/RegisterScreen';
 
 interface RegisterScreenContainerProps {}
 

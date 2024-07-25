@@ -1,11 +1,11 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import StackRoutes from './routes';
-import RegisterScreenContainer from '../containers/RegisterScreen';
-import ChatRoomScreenContainer from '../containers/ChatRoomScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import consts from '../constants/consts';
+import consts from '@constants/consts';
+import ChatRoomScreenContainer from '@containers/ChatRoomScreen';
+import RegisterScreenContainer from '@containers/RegisterScreen';
+import StackRoutes from './routes';
 
 const Stack = createNativeStackNavigator();
 

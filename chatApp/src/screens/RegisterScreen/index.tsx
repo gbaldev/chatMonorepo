@@ -6,11 +6,11 @@ import {
   TextInput,
   ImageBackground,
 } from 'react-native';
-import User from '../../models/User';
-import styles from './styles';
 import DeviceInfo from 'react-native-device-info';
-import consts from '../../constants/consts';
-import colors from '../../constants/colors';
+import User from '@models/User';
+import consts from '@constants/consts';
+import colors from '@constants/colors';
+import styles from './styles';
 
 interface RegisterScreenProps {
   onJoinChat: (user: Partial<User>) => void;

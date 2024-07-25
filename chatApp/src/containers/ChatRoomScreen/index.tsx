@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import ChatRoomScreen from '../../screens/ChatRoomScreen';
-import { useUserInfo } from '../../contexts/UserInfo/context';
-import { RegisterBackgroundTask } from '../../notifications';
+import ChatRoomScreen from '@screens/ChatRoomScreen';
+import { RegisterBackgroundTask } from '@notifications/index.ts';
+import { useUserInfo } from '@contexts/UserInfo/context';
 
 interface ChatRoomScreenProps {}
 

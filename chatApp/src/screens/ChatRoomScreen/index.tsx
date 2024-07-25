@@ -17,19 +17,19 @@ import {
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import socket, { SocketEvents } from '../../constants/socket';
-import styles from './styles';
-import MessageBubble from './components/MessageBubble';
-import { RouteProp, useRoute } from '@react-navigation/native';
-import StackRoutes, { StackRoutesList } from '../../navigation/routes';
-import Icon from '../../components/Icon';
+import { useRoute, RouteProp } from '@react-navigation/native';
+import Icon from '@components/Icon';
+import colors from '@constants/colors';
+import consts from '@constants/consts';
+import socket, { SocketEvents } from '@constants/socket';
+import Message from '@models/Message';
+import StackRoutes, { StackRoutesList } from '@navigation/routes';
 import notifications, {
   checkPermissions,
   requestPermissions,
-} from '../../notifications';
-import consts from '../../constants/consts';
-import colors from '../../constants/colors';
-import Message from '../../models/Message';
+} from '@notifications/index.ts';
+import MessageBubble from './components/MessageBubble';
+import styles from './styles';
 
 interface ChatRoomScreenProps {
   chatMessages: Message[];

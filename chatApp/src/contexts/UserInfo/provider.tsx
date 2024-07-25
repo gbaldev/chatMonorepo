@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import User from '../../models/User';
+import { UserInfoContextType, Provider } from './context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Provider, UserInfoContextType } from './context';
-import consts from '../../constants/consts';
-import Message from '../../models/Message';
+import consts from '@constants/consts';
+import Message from '@models/Message';
+import User from '@models/User';
 
 type UserInfoProviderProps = {
   children: any;

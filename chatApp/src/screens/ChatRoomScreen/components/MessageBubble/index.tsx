@@ -1,10 +1,10 @@
 /* eslint-disable no-bitwise */
 import React from 'react';
-import styles from './styles';
 import { ListRenderItem, Text, View } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import Message from '../../../../models/Message';
-import colors from '../../../../constants/colors';
+import colors from '@constants/colors';
+import Message from '@models/Message';
+import styles from './styles';
 
 const MessageBubble: ListRenderItem<Message> = ({ item }) => {
   const deviceId = DeviceInfo.getDeviceId();
